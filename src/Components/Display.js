@@ -1,10 +1,7 @@
 import React from 'react'
 import './Display.sass'
 
-const Display = ({ power, calculationArr }) => {
-
-  const calculatedValue = eval(calculationArr.slice(0, calculationArr.length-1).join(''))
-  console.log(calculationArr.join(''))
+const Display = ({ calculation, power }) => {
 
   return (
     <div id="display" className="display">
@@ -12,9 +9,9 @@ const Display = ({ power, calculationArr }) => {
         {(
         (!power)
           ? 'Power is off'
-          : !calculationArr
+          : !calculation
           ? 'Nothing clicked yet' 
-          : calculatedValue
+          : calculation
         )}
       </div>
     </div>

@@ -1,0 +1,99 @@
+$button-color: #ffffff
+$button-color-number: #bed3ff
+$button-color-operator: #3541e2
+$button-color-calculation: #27dd27
+$button-color-clearall: #d63b3b
+$inner-text: #000000
+
+
+@mixin flexbox() 
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+@mixin button-background($color)
+  background: $color
+  background: -webkit-gradient(linear, left top, left bottom, from(#9c853e), to($color))
+  background: -webkit-linear-gradient(top, #9c853e, $color)
+  background: -moz-linear-gradient(top, #9c853e, $color)
+  background: -ms-linear-gradient(top, #9c853e, $color)
+  background: -o-linear-gradient(top, #9c853e, $color)
+
+@mixin button-radius($val)
+  -webkit-border-radius: $val
+  -moz-border-radius: $val
+  border-radius: $val
+
+@mixin box-shadow($color)
+  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0
+  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0
+  box-shadow: rgba(0,0,0,1) 0 1px 0
+
+@mixin flex($fg: 1, $fs: 0, $fb: auto) 
+  // Set a variable to be used by box-flex properties
+  $fg-boxflex: $fg
+  // Box-Flex only supports a flex-grow value so lets grab the
+  // first item in the list and just return that.
+  @if type-of($fg) == 'list' 
+    $fg-boxflex: nth($fg, 1)
+  -webkit-box: $fg-boxflex
+  -moz-box: $fg-boxflex
+  -webkit-flex: $fg $fs $fb
+  -ms-flex: $fg $fs $fb
+  flex: $fg $fs $fb
+
+@mixin flex-wrap($value: nowrap) 
+  // No Webkit/FF Box fallback.
+  -webkit-flex-wrap: $value
+  @if $value == nowrap 
+    -ms-flex-wrap: none
+  @else 
+    -ms-flex-wrap: $value
+  flex-wrap: $value
+
+  
+.buttons
+  @include flexbox()
+  @include flex-wrap($value: wrap)
+  justify-content: space-around
+  margin-top: 15px
+  width: 60%
+  
+  
+.button 
+  @include button-background($color: $button-color)
+  @include button-radius($val: 20px)
+  @include box-shadow($color: rgba(0,0,0,1) 0 1px 0)
+  @include flex($fg: 0, $fs: 0, $fb: 22%)
+  color: $inner-text
+  border-top: 1px solid #f7f7f7
+  height: 140px
+  margin: 5px 5px 
+  text-shadow: rgba(0,0,0,.4) 0 1px 0
+  font-size: 18px
+  font-family: Georgia, serif
+  text-decoration: none
+  outline: none 
+
+  &.number
+    @include button-background($color: $button_color_number)
+    
+  &.operation
+    @include button-background($color: $button-color-operator)
+
+  &.calculation
+    @include button-background($color: $button-color-calculation)
+
+  &.clear-all
+    @include button-background($color: $button-color-clearall)
+    
+    
+    
+   
+.button:hover 
+   border-top-color: #ba8c00
+   filter: brightness(95%)
+   color: #ffffff
+
