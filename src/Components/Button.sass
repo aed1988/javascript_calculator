@@ -57,20 +57,20 @@ $inner-text: #000000
 .buttons
   @include flexbox()
   @include flex-wrap($value: wrap)
-  justify-content: space-around
-  margin-top: 15px
-  width: 60%
+  justify-content: center
+  margin: 25px auto
+  width: 40%
   
   
 .button 
   @include button-background($color: $button-color)
-  @include button-radius($val: 20px)
+  @include button-radius($val: 10px)
   @include box-shadow($color: rgba(0,0,0,1) 0 1px 0)
   @include flex($fg: 0, $fs: 0, $fb: 22%)
   color: $inner-text
   border-top: 1px solid #f7f7f7
-  height: 140px
-  margin: 5px 5px 
+  height: 90px
+  margin: 2px
   text-shadow: rgba(0,0,0,.4) 0 1px 0
   font-size: 18px
   font-family: Georgia, serif

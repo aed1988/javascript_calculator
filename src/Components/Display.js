@@ -9,9 +9,11 @@ const Display = ({ calculation, power }) => {
         {(
         (!power)
           ? 'Power is off'
-          : !calculation
-          ? 'Nothing clicked yet' 
-          : calculation
+            : calculation.length === 0
+              ? 0
+                : calculation.indexOf('=') === -1
+                  ? calculation
+                  : calculation[0]
         )}
       </div>
     </div>
