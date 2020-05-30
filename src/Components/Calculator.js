@@ -44,8 +44,8 @@ export default class Calculator extends Component {
   addOperatorToState = (input) => {
     let nextIndex = this.state.calculation.length
 
-    // Return if operation is first entry
-    if (this.state.calculation.length === 0) return
+    // Return if operation is first entry OR equals is selected when no operator has been entered at all
+    if (this.state.calculation.length === 0 || (input === '=' && !this.state.operatorInArr)) return
 
     // Replaces previous operation if two operations entered consecutively
     if (this.state.lastEntryType === 'operation') {
@@ -56,7 +56,6 @@ export default class Calculator extends Component {
 
     // Add to arr if no operator is already in arr
     else if (!this.state.operatorInArr) {
-    
       this.setState((prevState) => ({
         calculation: [...prevState.calculation, input],
         operatorInArr: true,
@@ -95,7 +94,7 @@ export default class Calculator extends Component {
         result = leftSideNumber / rightSideNumber
         break;
       default:
-        console.log('Failing')
+        alert('Failing in evaluateArrayToResult()')
         break;
     }
     return result.toPrecision(4)
