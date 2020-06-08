@@ -17,6 +17,7 @@ export default class Calculator extends Component {
 
   handleNonClearClick = (input) => {
     if (!this.props.power) return
+    if (input === 'A/C')  return this.clearAll()
 
     const inputNumber = parseInt(input) // Determines if input is an operator or a number
 
@@ -30,7 +31,7 @@ export default class Calculator extends Component {
     if (this.state.calculation.length === 0 && input === '0') return 
     //  Handles case where last action was "=".
     if (this.state.calculation.indexOf('=') !== -1) {
-      this.handleClearAll()
+      this.clearAll()
       this.setState({
         calculation: [input]
       })
@@ -100,7 +101,7 @@ export default class Calculator extends Component {
     return result.toPrecision(4)
   }
 
-  handleClearAll = () => {
+  clearAll = () => {
     this.setState(() => ({
       calculation: [],
       lastEntryType: 'number',
@@ -111,10 +112,10 @@ export default class Calculator extends Component {
   
   render() {
     return (
-      <>
+      <div className='calculator'>
         <Display calculation={this.state.calculation} power={this.props.power}/>
-        <Buttons handleClick={(e) => this.handleNonClearClick(e)} handleClearAll={() => this.handleClearAll()}/>
-      </>
+        <Buttons handleClick={(e) => this.handleNonClearClick(e)}/>
+      </div >
     )
   }
 }
