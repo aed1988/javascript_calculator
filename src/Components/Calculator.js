@@ -10,14 +10,16 @@ export default class Calculator extends Component {
       calculation: [],
       lastEntryType: 'number',
       operatorInArr: false,
-      operatorIndex: null
+      operatorIndex: null,
+      decimalInArr: false
     }
   }
 
 
-  handleNonClearClick = (input) => {
+  handleClick = (input) => {
     if (!this.props.power) return
     if (input === 'A/C')  return this.clearAll()
+    // if (input === "." && !this.state.decimalInArr) return 
 
     const inputNumber = parseInt(input) // Determines if input is an operator or a number
 
@@ -26,6 +28,8 @@ export default class Calculator extends Component {
     // Number
     else this.addNumberToState(input)
   }
+
+
 
   addNumberToState = (input) => {
     if (this.state.calculation.length === 0 && input === '0') return 
@@ -98,7 +102,7 @@ export default class Calculator extends Component {
         alert('Failing in evaluateArrayToResult()')
         break;
     }
-    return result.toPrecision(10)
+    return result
   }
 
   clearAll = () => {
@@ -114,7 +118,7 @@ export default class Calculator extends Component {
     return (
       <div className='calculator'>
         <Display calculation={this.state.calculation} power={this.props.power}/>
-        <Buttons handleClick={(e) => this.handleNonClearClick(e)}/>
+        <Buttons handleClick={(e) => this.handleClick(e)}/>
       </div >
     )
   }

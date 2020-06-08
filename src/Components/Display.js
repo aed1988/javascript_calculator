@@ -13,7 +13,7 @@ const Display = ({ calculation, power }) => {
               ? 0
                 : calculation.indexOf('=') === -1
                   ? calculation
-                  : calculation[0]
+                  : calculation[0].toPrecision(4)
         )}
       </div>
     </div>
