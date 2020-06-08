@@ -1,99 +1,88 @@
-$button-color: #ffffff
-$button-color-number: #bed3ff
-$button-color-operator: #3541e2
+$container-color: hsl(227, 10%, 10%)
+$button-color-number: #a972cb
+$button-color-operation: #6069e6
 $button-color-calculation: #27dd27
 $button-color-clearall: #d63b3b
 $inner-text: #000000
+$inner-gap: 5px
+
+$colors: (number: #a972cb, operation: #6069e6, calculation: #27dd27, clear-all:  #d63b3b)
 
 
-@mixin flexbox() 
-  display: -webkit-box
-  display: -moz-box
-  display: -ms-flexbox
-  display: -webkit-flex
-  display: flex
-
-@mixin button-background($color)
-  background: $color
-  background: -webkit-gradient(linear, left top, left bottom, from(#9c853e), to($color))
-  background: -webkit-linear-gradient(top, #9c853e, $color)
-  background: -moz-linear-gradient(top, #9c853e, $color)
-  background: -ms-linear-gradient(top, #9c853e, $color)
-  background: -o-linear-gradient(top, #9c853e, $color)
-
-@mixin button-radius($val)
-  -webkit-border-radius: $val
-  -moz-border-radius: $val
-  border-radius: $val
-
-@mixin box-shadow($color)
-  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0
-  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0
-  box-shadow: rgba(0,0,0,1) 0 1px 0
-
-@mixin flex($fg: 1, $fs: 0, $fb: auto) 
-  // Set a variable to be used by box-flex properties
-  $fg-boxflex: $fg
-  // Box-Flex only supports a flex-grow value so lets grab the
-  // first item in the list and just return that.
-  @if type-of($fg) == 'list' 
-    $fg-boxflex: nth($fg, 1)
-  -webkit-box: $fg-boxflex
-  -moz-box: $fg-boxflex
-  -webkit-flex: $fg $fs $fb
-  -ms-flex: $fg $fs $fb
-  flex: $fg $fs $fb
-
-@mixin flex-wrap($value: nowrap) 
-  // No Webkit/FF Box fallback.
-  -webkit-flex-wrap: $value
-  @if $value == nowrap 
-    -ms-flex-wrap: none
-  @else 
-    -ms-flex-wrap: $value
-  flex-wrap: $value
-
+.calculator-buttons
+  margin: 10px 20%
+  display: grid
+  grid-template-columns: repeat(4, 1fr [col-start])
+  column-gap: $inner-gap
+  grid-template-rows: repeat(5, minmax(50px, 80px))
+  row-gap: $inner-gap
+  grid-template-areas: ". . all-clear multiply" "seven eight nine divide" "four five six subtract" "one two three plus" "zero zero decimal equals"
   
-.buttons
-  @include flexbox()
-  @include flex-wrap($value: wrap)
-  justify-content: center
-  margin: 25px auto
-  width: 40%
-  
-  
-.button 
-  @include button-background($color: $button-color)
-  @include button-radius($val: 10px)
-  @include box-shadow($color: rgba(0,0,0,1) 0 1px 0)
-  @include flex($fg: 0, $fs: 0, $fb: 22%)
-  color: $inner-text
-  border-top: 1px solid #f7f7f7
-  height: 90px
-  margin: 2px
-  text-shadow: rgba(0,0,0,.4) 0 1px 0
-  font-size: 18px
-  font-family: Georgia, serif
-  text-decoration: none
-  outline: none 
+@each $name, $color in $colors
+  .button__#{$name}
+    --color: $color
+    &:hover
+      animation: fill 0.4s ease-in 0s 1 normal both
 
-  &.number
-    @include button-background($color: $button_color_number)
-    
-  &.operation
-    @include button-background($color: $button-color-operator)
+.button  
+  $self: &
+  color: var(--color)
+  font-size: 30px
+  font-family: bebas-neue
+  line-height: 1
+  background: $inner-text
+  border: 2px solid
+  border-radius: 4px
+  background: none
 
-  &.calculation
-    @include button-background($color: $button-color-calculation)
 
-  &.clear-all
-    @include button-background($color: $button-color-clearall)
+@each $name, $color in $colors
+  .button__#{$name}
+    --color: #{$color}
+    --hover: #{adjust-hue($color, 15deg)}
+
+
+@keyframes fill
+  60%
+    box-shadow: inset 0 0 0 2em var(--hover)
+  100% 
+    color: $inner-text
+    box-shadow: inset 0 0 0 2em var(--hover)
     
     
     
-   
-.button:hover 
-   border-top-color: #ba8c00
-   filter: brightness(95%)
-   color: #ffffff
 
+.zero
+  grid-area: zero
+.one
+  grid-area: one
+.two
+  grid-area: two
+.three
+  grid-area: three
+.four
+  grid-area: four
+.five
+  grid-area: five
+.six
+  grid-area: six
+.seven
+  grid-area: seven
+.eight
+  grid-area: eight
+.nine
+  grid-area: nine
+.decimal
+  grid-area: decimal
+.multiply
+  grid-area: multiply
+.divide
+  grid-area: divide
+.plus
+  grid-area: plus
+.subtract
+  grid-area: subtract
+.equals
+  grid-area: equals
+.all-clear
+  grid-area: all-clear
