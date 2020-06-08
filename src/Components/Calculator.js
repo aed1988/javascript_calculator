@@ -98,7 +98,7 @@ export default class Calculator extends Component {
         alert('Failing in evaluateArrayToResult()')
         break;
     }
-    return result.toPrecision(4)
+    return result.toPrecision(10)
   }
 
   clearAll = () => {
