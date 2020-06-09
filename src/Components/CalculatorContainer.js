@@ -8,10 +8,10 @@ export default class Calculator extends Component {
   
     this.state = {
       calculation: [],
-      lastEntryType: 'number',
-      operatorInArr: false,
+      lastEntryType: null,
+      isOperatorInArr: false,
       operatorIndex: null,
-      decimalInArr: false
+      isDecimalInNumber: false
     }
   }
 
@@ -20,20 +20,20 @@ export default class Calculator extends Component {
     const input = event.target.value
     
     if (!this.props.power) return
-    if (input === 'A/C')  return this.clearAll()
-    // if (input === "." && !this.state.decimalInArr) return 
+    if (input === 'A/C') return this.clearAll()
+    if (input === '.') return this.addDecimalToCalculation(input)
+    
 
     const inputNumber = parseInt(input) // Determines if input is an operator or a number
-
-    // Operator
-    if (isNaN(inputNumber)) this.addOperatorToState(input)
-    // Number
-    else this.addNumberToState(input)
+    
+    if (isNaN(inputNumber)) {
+      this.addOperatorToCalculation(input)
+    } else this.addNumberToCalculation(input)
   }
 
 
 
-  addNumberToState = (input) => {
+  addNumberToCalculation = (input) => {
     if (this.state.calculation.length === 0 && input === '0') return 
     //  Handles case where last action was "=".
     if (this.state.calculation.indexOf('=') !== -1) {
@@ -48,11 +48,11 @@ export default class Calculator extends Component {
     }))}
   }
 
-  addOperatorToState = (input) => {
+  addOperatorToCalculation = (input) => {
     let nextIndex = this.state.calculation.length
 
     // Return if operation is first entry OR equals is selected when no operator has been entered at all
-    if (this.state.calculation.length === 0 || (input === '=' && !this.state.operatorInArr)) return
+    if (this.state.calculation.length === 0 || (input === '=' && !this.state.isOperatorInArr)) return
 
     // Replaces previous operation if two operations entered consecutively
     if (this.state.lastEntryType === 'operation') {
@@ -62,12 +62,13 @@ export default class Calculator extends Component {
     } 
 
     // Add to arr if no operator is already in arr
-    else if (!this.state.operatorInArr) {
+    else if (!this.state.isOperatorInArr) {
       this.setState((prevState) => ({
         calculation: [...prevState.calculation, input],
-        operatorInArr: true,
+        isOperatorInArr: true,
         lastEntryType: 'operation',
-        operatorIndex: nextIndex
+        operatorIndex: nextIndex,
+        isDecimalInNumber: false
       }))
     } 
     // This will be the case where there is an operator in the arr and the last entry is a number.  This will resolve the calculation and set the result to the first entry in a new arr and add the operator after.
@@ -77,10 +78,28 @@ export default class Calculator extends Component {
       this.setState({
         calculation: [currentValue, input],
         lastEntryType: 'operation',
-        operatorIndex: 1
+        operatorIndex: 1,
+        isDecimalInNumber: false
         })
       }
     }
+
+  addDecimalToCalculation = (input) => {
+    if (this.state.isDecimalInNumber) return
+    if (this.state.lastEntryType === 'operation' || this.state.calculation.length === 0) {
+      this.addNumberToCalculation(0)
+      this.setState(prevState => ({
+        calculation: [...prevState.calculation, '.'],
+        lastEntryType: 'number',
+        isDecimalInNumber: true
+      }))
+    } else {
+      this.setState(prevState => ({
+        calculation: [...prevState.calculation, '.'],
+        isDecimalInNumber: true
+      }))
+    }
+  }
 
   evaluateArrayToResult = (arr = this.state.calculation) => {
     const OpIndex = this.state.operatorIndex;
@@ -110,9 +129,10 @@ export default class Calculator extends Component {
   clearAll = () => {
     this.setState(() => ({
       calculation: [],
-      lastEntryType: 'number',
-      operatorInArr: false,
-      operatorIndex: null
+      lastEntryType: null,
+      isOperatorInArr: false,
+      operatorIndex: null,
+      isDecimalInNumber: false
     }))
   }
   

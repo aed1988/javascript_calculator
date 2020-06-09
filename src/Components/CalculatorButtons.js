@@ -17,7 +17,7 @@ const Buttons = ({handleClick, handleClearAll, ...restProps}) => {
         <Button id={7} value={7} handleClick={handleClick} className={"button__number seven"}/>
         <Button id={8} value={8} handleClick={handleClick} className={"button__number eight"}/>
         <Button id={9} value={9} handleClick={handleClick} className={"button__number nine"}/>
-        {/* <Button id={'.'} value={'.'} handleClick={handleClick} className={"button__number decimal"}/> */}
+        <Button id={'.'} value={'.'} handleClick={handleClick} className={"button__number decimal"}/>
         <Button id={'*'} value={'*'} handleClick={handleClick} className={"button__operation multiply"}/>
         <Button id={'/'} value={'/'} handleClick={handleClick} className={"button__operation divide"}/>
         <Button id={'+'} value={'+'} handleClick={handleClick} className={"button__operation plus"}/>
