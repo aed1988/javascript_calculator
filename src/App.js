@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import './App.css';
-import Calculator from './Components/Calculator'
+import './App.sass';
+import CalculatorContainer from './Components/CalculatorContainer'
 import Switch from './Components/Switch'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Switch power={power} handleTogglePower={handleTogglePower}/>
-      <Calculator power={power}/>
+      <CalculatorContainer power={power}/>
     </>
   );
 }

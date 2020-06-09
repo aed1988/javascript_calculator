@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Display from './Display'
-import Buttons from './Buttons'
+import CalculatorButtons from './CalculatorButtons'
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -16,7 +16,9 @@ export default class Calculator extends Component {
   }
 
 
-  handleClick = (input) => {
+  handleClick = (event) => {
+    const input = event.target.value
+    
     if (!this.props.power) return
     if (input === 'A/C')  return this.clearAll()
     // if (input === "." && !this.state.decimalInArr) return 
@@ -118,7 +120,7 @@ export default class Calculator extends Component {
     return (
       <div className='calculator'>
         <Display calculation={this.state.calculation} power={this.props.power}/>
-        <Buttons handleClick={(e) => this.handleClick(e)}/>
+        <CalculatorButtons handleClick={(e) => this.handleClick(e)}/>
       </div >
     )
   }

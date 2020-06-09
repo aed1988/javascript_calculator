@@ -1,5 +1,4 @@
 import React from 'react'
-import './ToggleButton.sass'
 
 const Switch = ({power, handleTogglePower}) => {
 

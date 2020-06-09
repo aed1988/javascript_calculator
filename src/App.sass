@@ -4,42 +4,93 @@ $button-color-operation: #6069e6
 $button-color-calculation: #27dd27
 $button-color-clearall: #d63b3b
 $inner-text: #000000
-$inner-gap: 5px
+$inner-gap: 15px
 
 $colors: (number: #a972cb, operation: #6069e6, calculation: #27dd27, clear-all:  #d63b3b)
 
+*  
+  margin: 0 
+  padding: 0 
+  box-sizing: border-box 
+ 
+
+body  
+  margin: 0 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif 
+  -webkit-font-smoothing: antialiased 
+  -moz-osx-font-smoothing: grayscale 
+
+ 
+
+.calculator  
+  background-color: hsl(227, 10%, 10%) 
+  box-shadow: 10px 15px 6px -6px rgba(0, 0, 0, 0.4) 
+  display: block 
+  width: 40% 
+  margin: 0px auto 
+  padding: 10px 
+
+.toggleButton
+  display: block
+  border: none
+  outline: none
+  width: 200px
+  margin: 15px auto
+  padding: 12px
+  border-radius: 4px
+
+.toggleButton--on
+  background: #52e052
+
+.toggleButton--off
+  background: #ce0505
+ 
+.display
+  display: block
+  width: 90%
+  margin: 10px auto
+  text-align: end
+  background-color: #f8f8f88c
+  border: 3px solid #fbff07
+  min-height: 68px
+  
+.display--text
+  padding: 7px 25px
+  font-size: 3em
+  color: #131250
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 4px
+
 
 .calculator-buttons
-  margin: 10px 20%
+  margin: 10px 10%
   display: grid
   grid-template-columns: repeat(4, 1fr [col-start])
   column-gap: $inner-gap
   grid-template-rows: repeat(5, minmax(50px, 80px))
   row-gap: $inner-gap
   grid-template-areas: ". . all-clear multiply" "seven eight nine divide" "four five six subtract" "one two three plus" "zero zero decimal equals"
-  
-@each $name, $color in $colors
-  .button__#{$name}
-    --color: $color
-    &:hover
-      animation: fill 0.4s ease-in 0s 1 normal both
 
-.button  
-  $self: &
+
+.button
   color: var(--color)
   font-size: 30px
   font-family: bebas-neue
   line-height: 1
   background: $inner-text
-  border: 2px solid
   border-radius: 4px
   background: none
+  &:focus
+    outline: none
 
 
 @each $name, $color in $colors
   .button__#{$name}
     --color: #{$color}
     --hover: #{adjust-hue($color, 15deg)}
+    border: 2px solid $color
+    &:hover
+      animation: fill 0.4s ease-in 0s 1 normal both
 
 
 @keyframes fill
@@ -48,8 +99,6 @@ $colors: (number: #a972cb, operation: #6069e6, calculation: #27dd27, clear-all: 
   100% 
     color: $inner-text
     box-shadow: inset 0 0 0 2em var(--hover)
-    
-    
     
 
 .zero
